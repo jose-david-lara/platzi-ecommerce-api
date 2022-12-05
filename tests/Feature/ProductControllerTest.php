@@ -5,6 +5,7 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 
@@ -26,19 +27,21 @@ class ProductControllerTest extends TestCase
 
         $response->assertSuccessful();
         //$response->assertHeader('content-type', 'application/json');
-        $response->assertJsonCount(5);
+        $response->assertJsonCount(5,'data');
     }
 
 
     public function test_create_new_product()
     {
+
+
         $data = [
             'name' => 'Hola',
-            'price' => 10000,
+            'price' => 1000,
         ];
         $response = $this->postJson('/api/products', $data);
 
-        //print_r($response);
+        $response->dump();
 
         $response->assertSuccessful();
         // $response->assertHeader('content-type', 'application/json');
