@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 
-class ProductControllerTest extends TestCase
+class CategoryControllerTest extends TestCase
 {
 
     use RefreshDatabase;
@@ -26,7 +26,7 @@ class ProductControllerTest extends TestCase
 
         $response->assertSuccessful();
         //$response->assertHeader('content-type', 'application/json');
-        $response->assertJsonCount(5);
+        $response->assertJsonCount(5,'data');
     }
 
 
