@@ -23,6 +23,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+
     ];
 
     /**
@@ -45,6 +46,19 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+
+        });
+
+
+
+        $this->renderable(function ( Throwable $e, $request){
+
+
+                return response()->json([
+                   'error' => $e->getMessage()
+                ]);
+
+
         });
     }
 }

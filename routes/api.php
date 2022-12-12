@@ -31,4 +31,8 @@ Route::resource('categories', CategoryController::class);
 Route::post('sanctum/token',UserTokenController::class);
 Route::post('/newsletter', [NewsLetterController::class,'send']);
 
+Route::get('/server-error', function (){
+    abort(500,'Error 500');
+});
+
 

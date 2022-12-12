@@ -3,6 +3,7 @@
 namespace App\Models\Utils;
 
 use App\Events\ModelRated;
+use App\Exceptions\InvalidScore;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanRate
@@ -30,14 +31,25 @@ trait CanRate
         return $morphoToMany;
     }
 
-    public function rate(Model $model, float $score): bool
+    /**
+     * @throws InvalidScore
+     */
+    public function rate(Model $model, float $score, string $comments = null): bool
     {
         if($this->hasRated($model)){
             return false;
         }
 
+        $from = config('rating.from');
+        $to = config('rating.to');
+
+        if ($score < $from || $score > $to){
+            throw new InvalidScore($from, $to);
+        }
+
         $this->ratings($model)->attach($model->getKey(),[
            'score' => $score,
+            'comments' => $comments,
             'rateable_type' => get_class($model)
         ]);
 
